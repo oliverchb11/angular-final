@@ -1,0 +1,115 @@
+<nav class="navbar navbar-dark bg-dark ">
+    <a class="navbar-brand" href="#">
+        <img src="https://lh3.googleusercontent.com/proxy/eK3Bqjv8U5nmyXJyOgQ7cns-Z1LdhHfa2aM61WoafeEoogpkfJ3RQJGV7HdjMjE7a1UAPRIGUcR0XHWhykQlErLfI0dedTr6wZjWewmNFEfWid67BEozbczqEfrgJi90BC58zN_qguY" width="140" height="60" class="d-inline-block align-top" alt=""
+            loading="lazy">
+        <h1 class=" text-white" id="titulopricipal">Repuestos Unisabaneta</h1>
+
+    </a>
+</nav>
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <h4 class="text-center text-white">Seleccione que tipo de transporte usa:</h4>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                </div>
+                <div class="col hs-wrapper">
+                    <img src="assets/img/carros.jpeg" (click)="openModalCar(content)" id="imagenes" alt="">
+                    <div class="hs-overlay">
+                        <br>
+                        <br>
+                        <br>
+                        <h1 class="texte-white text-center">Carro </h1>
+                    </div>
+                </div>
+                <div class="col hs-wrapper2">
+                    <img src="assets/img/motos.jpeg" (click)="openModalmotorcycle(content1)" id="imagenes2" alt="">
+                    <div class="hs-overlay2">
+                        <br>
+                        <br>
+                        <br>
+                        <h1 class="texte-white text-center">Moto </h1>
+                    </div>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-center" id="modal-basic-title">Transporte: Carro</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
+        <div class="modal-body">
+            <h5 class="text-center">Ingrese la marca de su carro</h5>
+            <select name="" id="" #marca (click)="agregarMarca()" class="form-control">
+            <option value="">Seleccione</option>
+            <option *ngFor="let marca of marcas" [value]='marca.id' >{{marca.id}}</option>
+        </select>
+        </div>
+        <div class="modal-body" *ngIf="validador">
+            <h5 class="text-center">Ingrese la pieza de su carro</h5>
+            <select name="" id="" #pieza (click)="agregarPieza(pieza,marca)" class="form-control">
+            <option value="">Seleccione</option>
+            <option value="bumper" >bumper</option>
+            <option value="chasis" >chasis</option>
+            <option value="neumatico" >neumatico</option>
+        </select>
+        </div>
+        <div class="modal-body" *ngIf="validador2">
+            <h5 class="text-center">Ingrese el taller</h5>
+            <select name="" id="" #taller (click)="agregarTaller(taller)" class="form-control">
+            <option value="">Seleccione</option>
+            <option *ngFor="let taller of talleres" [value]="taller.id">{{taller.id}}</option>
+        </select>
+        </div>
+        <div class="modal-body" *ngIf="validador3">
+            <h5 class="text-center">Datos del taller</h5>
+            <div class="row">
+                <div class="col">
+                    Dirección:
+                    <p> LAT: {{datosTaller.Direccion.u_}} </p>
+                    <p> LNG: {{datosTaller.Direccion.h_}} </p>
+                </div>
+                <div class="col">
+                    Precio: {{datosTaller.Precio}}
+                </div>
+                <div class="col">
+                    Horario de atencion: {{datosTaller.HorarioAtencion}}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        </div>
+    </ng-template>
+
+    <ng-template #content1 let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title text-center" id="modal-basic-title">Transporte: Moto</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
+        <div class="modal-body">
+            <h5 class="text-center">Ingrese la marca de su moto</h5>
+            <select name="" id="" class="form-control">
+            <option value="">Seleccione</option>
+        </select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        </div>
+    </ng-template>
+</div>
