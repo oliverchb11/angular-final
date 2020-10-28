@@ -98,3 +98,11 @@
     margin-left: 130%;
     margin-top: -55px;
 }
+
+#divMoto {
+    border-radius: 5px
+}
+
+#divCarro {
+    border-radius: 5px
+}

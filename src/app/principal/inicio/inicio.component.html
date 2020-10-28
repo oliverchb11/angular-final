@@ -20,7 +20,7 @@
                 <div class="col">
                 </div>
                 <div class="col hs-wrapper">
-                    <img src="assets/img/carros.jpeg" (click)="openModalCar(content)" id="imagenes" alt="">
+                    <img src="assets/img/carros.jpeg" (click)="openModalCar(content,carro)" id="imagenes" alt="">
                     <div class="hs-overlay">
                         <br>
                         <br>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="col hs-wrapper2">
-                    <img src="assets/img/motos.jpeg" (click)="openModalmotorcycle(content1)" id="imagenes2" alt="">
+                    <img src="assets/img/motos.jpeg" (click)="openModalmotorcycle(content1,moto)" id="imagenes2" alt="">
                     <div class="hs-overlay2">
                         <br>
                         <br>
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-
+    <!-- template modal del carro -->
     <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
             <h4 class="modal-title text-center" id="modal-basic-title">Transporte: Carro</h4>
@@ -53,48 +53,43 @@
         </div>
         <div class="modal-body">
             <h5 class="text-center">Ingrese la marca de su carro</h5>
-            <select name="" id="" #marca (click)="agregarMarca()" class="form-control">
+            <select name="" id="" #marcac class="form-control">
             <option value="">Seleccione</option>
-            <option *ngFor="let marca of marcas" [value]='marca.id' >{{marca.id}}</option>
+            <option *ngFor="let marcaCarro of marcasCarro" [value]='marcaCarro' >{{marcaCarro}}</option>
         </select>
         </div>
-        <div class="modal-body" *ngIf="validador">
-            <h5 class="text-center">Ingrese la pieza de su carro</h5>
-            <select name="" id="" #pieza (click)="agregarPieza(pieza,marca)" class="form-control">
+        <div class="modal-body">
+            <h5 class="text-center">Ingrese el accesorio de su carro</h5>
+            <select name="" id="" #accesorioc (click)="datosCarro(carros,marcac,accesorioc)" class="form-control">
             <option value="">Seleccione</option>
-            <option value="bumper" >bumper</option>
-            <option value="chasis" >chasis</option>
-            <option value="neumatico" >neumatico</option>
+            <option *ngFor="let accesorioCarro of accesoriosCarro" [value]='accesorioCarro' >{{accesorioCarro}}</option>
         </select>
         </div>
-        <div class="modal-body" *ngIf="validador2">
-            <h5 class="text-center">Ingrese el taller</h5>
-            <select name="" id="" #taller (click)="agregarTaller(taller)" class="form-control">
-            <option value="">Seleccione</option>
-            <option *ngFor="let taller of talleres" [value]="taller.id">{{taller.id}}</option>
-        </select>
+        <div class="modal-footer text-center">
+            <button type="button" class="btn btn-primary form-control " [disabled]="!btnDesiable" (click)="predecirCarro()">Predecir</button>
         </div>
-        <div class="modal-body" *ngIf="validador3">
-            <h5 class="text-center">Datos del taller</h5>
+        <div class="row">
+            <div class="col">
+                <p>
+                    <ngb-progressbar [showValue]="true" type="info" [value]="progreso"></ngb-progressbar>
+                </p>
+            </div>
+        </div>
+        <div *ngIf="divCarro" class="bg-primary" id="divCarro">
             <div class="row">
                 <div class="col">
-                    Dirección:
-                    <p> LAT: {{datosTaller.Direccion.u_}} </p>
-                    <p> LNG: {{datosTaller.Direccion.h_}} </p>
+                    <h5 class="text-center text-white">El mejor precio para el accesorio {{accesorio}} de tu Automovil {{marca}} es:</h5>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col">
-                    Precio: {{datosTaller.Precio}}
-                </div>
-                <div class="col">
-                    Horario de atencion: {{datosTaller.HorarioAtencion}}
+                    <h3 class="text-center text-white">{{precio| currency}}</h3>
+                    <h5 class="text-center text-white">Lo puedes encontrar en el establecimiento: {{establecimiento}} </h5>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
-        </div>
     </ng-template>
-
+    <!-- template modal de la moto -->
     <ng-template #content1 let-c="close" let-d="dismiss">
         <div class="modal-header">
             <h4 class="modal-title text-center" id="modal-basic-title">Transporte: Moto</h4>
@@ -104,12 +99,39 @@
         </div>
         <div class="modal-body">
             <h5 class="text-center">Ingrese la marca de su moto</h5>
-            <select name="" id="" class="form-control">
+            <select name="" id="" #marcam class="form-control">
             <option value="">Seleccione</option>
+            <option *ngFor="let marcaMoto of marcasMoto" [value]='marcaMoto' >{{marcaMoto}}</option>
+        </select>
+        </div>
+        <div class="modal-body">
+            <h5 class="text-center">Ingrese el accesorio de su moto</h5>
+            <select name="" id="" #accesoriom (click)="datosMoto(motos,marcam,accesoriom)" class="form-control">
+            <option value="">Seleccione</option>
+            <option *ngFor="let accesorioMoto of accesoriosMoto" [value]='accesorioMoto' >{{accesorioMoto}}</option>
         </select>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+            <button type="button" class="btn btn-primary form-control " [disabled]="!btnDesiable" (click)="predecirMoto()">Predecir</button>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>
+                    <ngb-progressbar [showValue]="true" type="info" [value]="progreso1"></ngb-progressbar>
+                </p>
+            </div>
+        </div>
+        <div *ngIf="divMoto" class="bg-primary" id="divMoto">
+            <div class="row">
+                <div class="col">
+                    <h4 class="text-center text-white">El mejor precio para el accesorio {{accesorio}} de tu Moto {{marca}} es:</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-center text-white">{{precio | currency}}</h3>
+                </div>
+            </div>
         </div>
     </ng-template>
 </div>
